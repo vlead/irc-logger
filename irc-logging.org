@@ -1,0 +1,79 @@
+#+AUTHOR: Raghupathi Kammari
+#+TITLE: Set up IRC Logging Server
+#+DATE: 24-Dec-2016
+* Introduction
+  This document describes the step by step process for setting up the
+  =supybot= bot for IRC channels to log the messages.
+* Supybot
+  Supybot, is an IRC [[https://en.wikipedia.org/wiki/Internet_Relay_Chat][(Internet Relay Chat)]] bot written in Python. It
+  does everything you need from a IRC bot and also it's very easy to
+  use.
+* Installation
+** Install =supybot=
+   Install =supybot= using below command.
+#+BEGIN_EXAMPLE
+$ sudo apt-get install -y supybot
+#+END_EXAMPLE
+* Configuration
+** Initial configuration
+   Create folder called *supybot* in home directory
+#+BEGIN_EXAMPLE
+$ cd ~
+$ mkdir supybot
+$ cd supybot
+#+END_EXAMPLE
+** Configure =supybot-wizard=
+   - Run below command to configure bot name, IRC server networks,
+     channels, creating owner ..etc.  
+   - While running this command multiple prompts will displayed answer
+     all of then as per your requirements.
+#+BEGIN_EXAMPLE
+$ supybot-wizard
+#+END_EXAMPLE
+** Run =supybot= client programme.
+   - After setting up everything there will be file created with =<your-bot-name>.conf= on your current directory.
+   - Now its time to start the =supybot= configuration file using
+     below command
+#+BEGIN_EXAMPLE
+$ supybot configurationfile.conf
+#+END_EXAMPLE
+   - This programme will connect you to the configured IRC
+     channels. And now you should be able to see the bot logged into
+     the IRC channel with botname that you specified during configuration. (Check once by log into the IRC channel)
+   - If you could see bot logged into the specified IRC channles that
+     means you are succesfully configured bot for your channels.
+** Login to the bot
+   - While configuration of =supybot-wizard=  it will prompt for setting up =ownername= and =password=.
+   - Use =ownername= and =password= to login into the bot.
+   - Go to IRC channel that you configured. And click on botname and execute below command to login
+#+BEGIN_EXAMPLE
+identify <ownername> <password>
+#+END_EXAMPLE
+   - if above operation successful which indicates you are logged into
+     the bot with =ownername=
+** Setup Logging Plugin
+   - Logging of channels is provided by the =ChannelLogger= plugin.
+   - To install this module please load it using below command.
+#+BEGIN_EXAMPLE
+load ChannelLogger
+#+END_EXAMPLE
+   - To rotate the logs based on timestamps please enable =rotateLogs=
+     to =True= using below command.
+#+BEGIN_EXAMPLE
+config plugins.channelLogger.rotateLogs True
+#+END_EXAMPLE
+   - Use below command to logg the messages whenever chat messages
+     appears on channel otherwise by default it will store logg for every
+     1hr
+#+BEGIN_EXAMPLE
+flush
+#+END_EXAMPLE
+** Check Loggs
+  -  By default all logs will go into
+     =logs/ChannelLogger/<network>/<channel>/<channel>.log= and will
+     be rotated when the default "%d-%a-%Y" =(eg. 06-Sat-2008)=
+     timestamp rotates.
+* Reference
+- [[http://supybook.fealdia.org/devel/][Supybot handbook]]
+- [[https://sourceforge.net/projects/supybot/][Supybot source code]]
+- Supybot IRC channel on freenode: *#supybot*
